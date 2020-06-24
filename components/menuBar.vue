@@ -30,7 +30,7 @@
     }
 </script>
 
-<style scoped>
+<style scoped >
 
   ul{
     padding: 5px;
