@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <nuxt-link to="/login"> Login </nuxt-link>
     <div>  Counter is : {{ $store.state.counter }}</div>
     <div> <button @click="increment"> Add data</button></div>
@@ -35,3 +35,8 @@
   }
 }
 </script>
+<style>
+  .container{
+    padding: 20px;
+  }
+</style>
