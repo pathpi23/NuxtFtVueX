@@ -1,12 +1,24 @@
 <template>
   <div>
-    <div>  Counter is : {{$store.state.counter }}</div>
+    <nuxt-link to="/login"> Login </nuxt-link>
+    <div>  Counter is : {{ $store.state.counter }}</div>
     <div> <button @click="increment"> Add data</button></div>
   </div>
 </template>
 <script>
   import { mapState } from 'vuex'
 export default {
+    data() {
+      return{
+
+      }
+    },
+  // router:{
+  //     routes:[{
+  //       path:'/login',
+  //       components:'/pages/login.vue'
+  //     }]
+  // },
   // fetch(context) is called by the server-side
   // and before instantiating the component
   fetch ({ store }) {
