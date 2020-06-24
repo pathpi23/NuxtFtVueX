@@ -30,16 +30,16 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+$Primary: #3549e;
   ul{
     padding: 5px;
     overflow: auto;
-    background: #35495e;
+    background: $Primary;
   }
   li{
     display: inline;
-    background: #35495e;
+    background:  $Primary;
     color: #F5F5F5;
     padding: 5px;
   }
