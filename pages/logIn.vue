@@ -2,29 +2,40 @@
   <div>
     <menuBar/>
     <div class="container">
-      <ValidationProvider rules="required|email" v-slot="{errors}">
-        Email :
-        <input v-model="email" type="text" placeholder="example@email.com">
-        <span style="color:red">
+      <div class="card" v-if="($store.state.token) == null">
+        <ValidationProvider rules="required|email" v-slot="{errors}">
+          <p> Email :
+            <input v-model="email" type="text" placeholder="example@email.com">
+            <span style="color:red">
           *{{ errors[0] }}
         </span>
-      </ValidationProvider>
-      <br/>
-      <ValidationProvider v-slot="{errors}">
-        Password :
-        <input v-model="password" type="password" placeholder="Password">
-        <span style="color:red">
-          *{{ errors[0] }}
-        </span>
-      </ValidationProvider>
-      <br/>
-      <button @click="handleClickedLogin">Log in</button>
-      <button @click="handleClickedLogout">Log out</button>
-      <p>{{ $store.state.token }}</p>
-    </div>
+          </p>
 
+        </ValidationProvider>
+
+        <ValidationProvider v-slot="{errors}">
+          <p>
+            Password :
+            <input v-model="password" type="password" placeholder="Password">
+            <span style="color:red">
+          *{{ errors[0] }}
+        </span>
+          </p>
+
+        </ValidationProvider>
+
+        <button class="submit" @click="handleClickedLogin">Log in</button>
+      </div>
+      <div v-else class="card">
+        <p>You have login!</p>
+        <p>{{$store.state.token}}</p>
+        <button @click="handleClickedLogout">Log out</button>
+
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
   import menuBar from '@/components/menuBar';
   import axios from 'axios'
@@ -44,8 +55,7 @@
       handleClickedLogin() {
         if (this.email == '') {
           alert('Please fill in email')
-        }
-        else {
+        } else {
           console.log(this.email, this.password)
           this.$store.dispatch('Login', {
             email: this.email,
@@ -69,7 +79,5 @@
   }
 </script>
 <style>
-  .container {
-    padding: 1rem;
-  }
+
 </style>
