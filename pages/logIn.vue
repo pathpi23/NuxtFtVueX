@@ -10,7 +10,7 @@
         </span>
       </ValidationProvider>
       <br/>
-      <ValidationProvider rules="password" v-slot="{errors}">
+      <ValidationProvider v-slot="{errors}">
         Password :
         <input v-model="password" type="password" placeholder="Password">
         <span style="color:red">
@@ -18,13 +18,16 @@
         </span>
       </ValidationProvider>
       <br/>
-      <button>Log in</button>
+      <button @click="handleClickedLogin">Log in</button>
+      <button @click="handleClickedLogout">Log out</button>
+      <p>{{ $store.state.token }}</p>
     </div>
 
   </div>
 </template>
 <script>
-  import menuBar from '@/components/menuBar'
+  import menuBar from '@/components/menuBar';
+  import axios from 'axios'
   import {ValidationProvider} from 'vee-validate';
 
   export default {
@@ -33,11 +36,36 @@
     },
     data() {
       return {
-        email: '',
-        password: ''
+        email: 'eve.holt@reqres.in',
+        password: 'cityslicka'
+      }
+    },
+    methods: {
+      handleClickedLogin() {
+        if (this.email == '') {
+          alert('Please fill in email')
+        }
+        else {
+          console.log(this.email, this.password)
+          this.$store.dispatch('Login', {
+            email: this.email,
+            password: this.password,
+          })
+            .then(success => {
+              console.log('tellme')
+            })
+            .catch(error => {
+              console.log('errorr')
+              console.log(error.response.data)
+              console.log(error.response.status)
+            })
+        }
+
+      },
+      handleClickedLogout() {
+        this.$store.commit('logout')
       }
     }
-
   }
 </script>
 <style>
