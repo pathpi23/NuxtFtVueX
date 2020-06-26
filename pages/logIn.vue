@@ -53,7 +53,7 @@
     },
     methods: {
       handleClickedLogin() {
-        if (this.email == '') {
+        if (this.email === '') {
           alert('Please fill in email')
         } else {
           console.log(this.email, this.password)

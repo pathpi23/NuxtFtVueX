@@ -19,9 +19,6 @@
 </script>
 
 <style scoped lang="scss">
-  $primary: #4DB6AC;
-  $activeprime: #f5f5f5;
-  $visitprime: #D0ECE7;
 
   ul {
     padding: 15px;
@@ -30,15 +27,15 @@
   }
   li {
     :visited{
-      color:$visitprime ;
+      color:$visit-prime ;
     }
     :hover{
       text-decoration: none;
-      color:$activeprime ;
+      color:$active-prime ;
     }
     display: inline;
     background: $primary;
-    color: $activeprime;
+    color: $active-prime;
     padding: 5px;
   }
 
