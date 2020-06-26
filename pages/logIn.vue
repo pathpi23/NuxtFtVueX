@@ -2,29 +2,43 @@
   <div>
     <menuBar/>
     <div class="container">
-      <ValidationProvider rules="required|email" v-slot="{errors}">
-        Email :
-        <input v-model="email" type="text" placeholder="example@email.com">
-        <span style="color:red">
+      <div class="card" v-if="($store.state.token) == null">
+        <ValidationProvider rules="required|email" v-slot="{errors}">
+          <p> Email :
+            <input v-model="email" type="text" placeholder="example@email.com">
+            <span style="color:red">
           *{{ errors[0] }}
         </span>
-      </ValidationProvider>
-      <br/>
-      <ValidationProvider rules="password" v-slot="{errors}">
-        Password :
-        <input v-model="password" type="password" placeholder="Password">
-        <span style="color:red">
-          *{{ errors[0] }}
-        </span>
-      </ValidationProvider>
-      <br/>
-      <button>Log in</button>
-    </div>
+          </p>
 
+        </ValidationProvider>
+
+        <ValidationProvider v-slot="{errors}">
+          <p>
+            Password :
+            <input v-model="password" type="password" placeholder="Password">
+            <span style="color:red">
+          *{{ errors[0] }}
+        </span>
+          </p>
+
+        </ValidationProvider>
+
+        <button class="submit" @click="handleClickedLogin">Log in</button>
+      </div>
+      <div v-else class="card">
+        <p>You have login!</p>
+        <p>{{$store.state.token}}</p>
+        <button @click="handleClickedLogout">Log out</button>
+
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
-  import menuBar from '@/components/menuBar'
+  import menuBar from '@/components/menuBar';
+  import axios from 'axios'
   import {ValidationProvider} from 'vee-validate';
 
   export default {
@@ -33,15 +47,37 @@
     },
     data() {
       return {
-        email: '',
-        password: ''
+        email: 'eve.holt@reqres.in',
+        password: 'cityslicka'
+      }
+    },
+    methods: {
+      handleClickedLogin() {
+        if (this.email === '') {
+          alert('Please fill in email')
+        } else {
+          console.log(this.email, this.password)
+          this.$store.dispatch('Login', {
+            email: this.email,
+            password: this.password,
+          })
+            .then(success => {
+              console.log('tellme')
+            })
+            .catch(error => {
+              console.log('errorr')
+              console.log(error.response.data)
+              console.log(error.response.status)
+            })
+        }
+
+      },
+      handleClickedLogout() {
+        this.$store.commit('logout')
       }
     }
-
   }
 </script>
 <style>
-  .container {
-    padding: 1rem;
-  }
+
 </style>

@@ -1,46 +1,42 @@
 <template>
-<div>
-
-  <ul>
-    <li><nuxt-link to="/">Home</nuxt-link></li>
-    <li>Home</li>
-    <li>Home</li>
-  </ul>
-</div>
+  <div>
+    <ul>
+      <li>
+        <nuxt-link to="/">Home</nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/login">Login</nuxt-link>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "menuBar",
-      data() {
+  export default {
+    name: "menuBar",
 
-      },
-      methods: {
-        handleChangepageClicked(userId) {
-          console.log(userId)
-          this.$router.push({
-            name: 'User-id',
-            params: {
-              id: userId,
-            },
-          })
-        },
-      },
-
-    }
+  }
 </script>
 
-<style scoped >
+<style scoped lang="scss">
 
-  ul{
-    padding: 5px;
+  ul {
+    padding: 15px;
     overflow: auto;
-    background: #35495e;
+    background: $primary;
   }
-  li{
+  li {
+    :visited{
+      color:$visit-prime ;
+    }
+    :hover{
+      text-decoration: none;
+      color:$active-prime ;
+    }
     display: inline;
-    background: #35495e;
-    color: #F5F5F5;
+    background: $primary;
+    color: $active-prime;
     padding: 5px;
   }
+
 </style>
