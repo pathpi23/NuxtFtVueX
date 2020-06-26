@@ -1,9 +1,17 @@
 <template>
   <div>
+    <menuBar/>
     <Nuxt />
   </div>
 </template>
-
+<script>
+  import menuBar from '@/components/menuBar';
+export default {
+  components: {
+    menuBar
+    }
+  }
+</script>
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',

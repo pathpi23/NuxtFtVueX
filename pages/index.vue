@@ -1,6 +1,5 @@
 <template>
   <div>
-    <menuBar/>
     <div class="container">
       <div class="card">
         <h3>Click to add count</h3>
@@ -11,17 +10,15 @@
   </div>
 </template>
 <script>
-  import menuBar from '@/components/menuBar';
   import {mapState} from 'vuex'
   export default {
     components: {
-      menuBar
+
     },
     data() {
       return {}
     },
     fetch({store}) {
-      store.commit('increment')
     },
     computed: mapState([
       'counter'

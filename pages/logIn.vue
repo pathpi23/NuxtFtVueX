@@ -1,8 +1,7 @@
 <template>
   <div>
-    <menuBar/>
     <div class="container">
-      <div class="card" v-if="($store.state.token) == null">
+      <div class="card" v-if="($store.state.token) === ''">
         <h3>Log in</h3>
 
         <form action="#" @submit.prevent="handleClickedLogin">
@@ -40,7 +39,6 @@
 </template>
 
 <script>
-  import menuBar from '@/components/menuBar';
   import Logout from '@/components/Logout';
 
   import axios from 'axios'
@@ -48,7 +46,7 @@
 
   export default {
     components: {
-      menuBar, ValidationProvider,Logout
+       ValidationProvider,Logout
     },
     data() {
       return {

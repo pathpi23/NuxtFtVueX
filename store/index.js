@@ -3,7 +3,7 @@ import vuex from 'vuex'
 
 export const state = () => ({
   counter: 0,
-  token: localStorage.getItem('token_access') || null,
+  token: localStorage.getItem('token_access') || '',
 
 })
 export const mutations = {
@@ -11,15 +11,16 @@ export const mutations = {
     state.counter++
   },
   catchUser(state, val) {
-
     state.token = val
     console.log(state.token, '<<')
   },
   logout(state) {
-    state.token = null
+    localStorage.setItem('token_access','')
+    state.token = ''
   }
 }
 export const actions = {
+
   Login({commit}, {email, password}) {
     console.log('log in access . . .')
     axios.post('https://reqres.in/api/login', {email, password})
@@ -28,7 +29,7 @@ export const actions = {
           console.log(response.data.token)
           //console.log(response.status)
           const val = response.data.token
-          // console.log( localStorage.getItem('token_access') , "localstorage")
+          localStorage.setItem('token_access',val)
           commit('catchUser', val)
           return (true)
         }
@@ -43,10 +44,8 @@ export const actions = {
     axios.post('https://reqres.in/api/register', {email, password})
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data.token)
-          //console.log(response.status)
           const val = response.data.token
-          // console.log( localStorage.getItem('token_access') , "localstorage")
+          localStorage.setItem('token_access',val)
           commit('catchUser', val)
           return (true)
         }

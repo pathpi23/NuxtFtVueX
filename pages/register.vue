@@ -1,8 +1,7 @@
 <template>
   <div>
-    <menuBar/>
     <div class="container">
-      <div class="card" v-if="($store.state.token) == null">
+      <div class="card" v-if="($store.state.token) === ''">
         <h3>Register</h3>
         <form action="#" @submit.prevent="handleClickedRegister">
           <ValidationProvider rules="required|email" v-slot="{errors}">
@@ -36,14 +35,13 @@
 </template>
 
 <script>
-  import menuBar from '@/components/menuBar';
   import Logout from '@/components/Logout';
   import axios from 'axios'
   import {ValidationProvider} from 'vee-validate';
 
   export default {
     components: {
-      menuBar, ValidationProvider, Logout
+     ValidationProvider, Logout
     },
     data() {
       return {

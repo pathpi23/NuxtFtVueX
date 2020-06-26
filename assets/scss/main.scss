@@ -1,36 +1,43 @@
-$xs:5px;
-$sm:1rem;
-$md:2rem;
-$lg:3rem;
-$gray-border:#909497;
-$submit:#45B39D;
+$xs: 5px;
+$sm: 1rem;
+$md: 2rem;
+$lg: 3rem;
+$gray: #909497;
+$submit: #45B39D;
 $primary: #4DB6AC;
 $active-prime: #f5f5f5;
 $visit-prime: #D0ECE7;
+
 .container {
   padding: $sm;
 }
-.card{
-  margin:auto;
-  p{
-    padding-bottom:$sm;
+
+.card {
+  margin: auto;
+
+  p {
+    padding-bottom: $sm;
   }
-  h3{
+
+  h3 {
     text-align: center;
-    padding-bottom:$sm;
+    padding-bottom: $sm;
 
   }
-  span{
-    padding-bottom:$xs;
+
+  span {
+    padding-bottom: $xs;
   }
+
   padding: $sm;
   width: 300px;
   border-radius: 5px;
   border-style: solid;
-  border-color: $gray-border;
+  border-color: $gray;
   border-width: 1px;
 }
-.submit{
+
+.submit {
   background-color: $primary;
   border: none;
   color: white;
@@ -38,6 +45,30 @@ $visit-prime: #D0ECE7;
   text-decoration: none;
   font-size: 16px;
   border-radius: 5px;
-padding: 5px;
+  padding: 5px;
   cursor: pointer;
+}
+
+.padding-sm {
+  margin: 10px;
+}
+
+.col-height {
+  height: $md;
+}
+
+.col-sm {
+  width: 20%;
+  text-align: center;
+
+}
+
+.col-md {
+  width: 40%;
+  text-align: center;
+
+}
+.prim-bg{
+  background-color: $gray;
+  color: white;
 }
