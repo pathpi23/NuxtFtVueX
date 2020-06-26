@@ -1,5 +1,7 @@
-export default {
+import session from 'express-session'
+import bodyParser from 'body-parser'
 
+export default {
   /*
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
@@ -78,5 +80,21 @@ export default {
   },
   generate: {
     fallback: true
-  }
+  },
+  serverMiddleware: [
+
+// body-parser middleware
+    bodyParser.json(),
+    // session middleware
+    session({
+      secret: 'super-secret-key',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { maxAge: 60000 }
+    }),
+    // Api middleware
+    // We add /api/login & /api/logout routes
+    '~/api'
+
+  ]
 }
