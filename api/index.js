@@ -16,8 +16,9 @@ router.use((req, res, next) => {
 
 // Add POST - /api/login
 router.post('/login', (req, res) => {
-    req.session.token = req.body.val
-    return res.json({value : 'success'})
+  req.session.token = req.body.val
+  console.log(req.body.val)
+  return res.json(req.session.token)
 })
 
 // Add POST - /api/logout

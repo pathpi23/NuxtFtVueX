@@ -3,28 +3,32 @@
     <menuBar/>
     <div class="container">
       <div class="card" v-if="($store.state.token) == null">
-        <ValidationProvider rules="required|email" v-slot="{errors}">
-          <p> Email :
-            <input v-model="email" type="text" placeholder="example@email.com">
-            <span style="color:red">
+        <form action="#" @submit.prevent="handleClickedLogin">
+          <ValidationProvider rules="required|email" v-slot="{errors}">
+            <p> Email :
+              <input v-model="email" type="text" placeholder="example@email.com">
+              <span style="color:red">
           *{{ errors[0] }}
         </span>
-          </p>
+            </p>
 
-        </ValidationProvider>
+          </ValidationProvider>
 
-        <ValidationProvider v-slot="{errors}">
-          <p>
-            Password :
-            <input v-model="password" type="password" placeholder="Password">
-            <span style="color:red">
+          <ValidationProvider v-slot="{errors}">
+            <p>
+              Password :
+              <input v-model="password" type="password" placeholder="Password">
+              <span style="color:red">
           *{{ errors[0] }}
         </span>
-          </p>
+            </p>
 
-        </ValidationProvider>
+          </ValidationProvider>
+          {{$store.state.token}}
 
-        <button class="submit" @click="handleClickedLogin">Log in</button>
+          <button class="submit" >Log in</button>
+        </form>
+
       </div>
       <div v-else class="card">
         <p>You have login!</p>
@@ -52,12 +56,12 @@
       }
     },
     methods: {
-      handleClickedLogin() {
+       handleClickedLogin() {
         if (this.email === '') {
           alert('Please fill in email')
         } else {
           console.log(this.email, this.password)
-          this.$store.dispatch('Login', {
+           this.$store.dispatch('Login', {
             email: this.email,
             password: this.password,
           })
