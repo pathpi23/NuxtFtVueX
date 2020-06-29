@@ -7,9 +7,7 @@
     <p v-else-if="$fetchState.error">Error while fetching posts: {{ $fetchState.error.message }}</p>
     <div v-else class="container">
       <center>
-
-
-      <tbody>
+        <tbody>
         <tr class="prim-bg col-height">
           <th class="col-height">color</th>
           <th class="col-height">Id</th>
@@ -21,12 +19,26 @@
           <td class="col-height col-sm" v-text="post.name"></td>
         </tr>
         </tbody>
+        <div class="paginate1">
+          <div class="paging" href="#" v-if="this.pageOn!=1" @click="decPage">&laquo;</div>
+          <div :class="`paging ${n === pageOn ? 'active':''}`"
+               v-for="n in pageTotal"
+               :v-model="pageOn"
+               @click="handleSelectedPage(n)">
+            {{n}}
+          </div>
+          <div class="paging" href="#" v-if="this.pageOn!=this.pageTotal" @click="incPage">&raquo;</div>
+        </div>
         <div class="container">
-          <button>Create</button>
           <button>Delete</button>
           <button>Edit</button>
         </div>
-
+        <div>
+          <input v-model="wordType">
+          {{wordType}}
+          <button @click="createToArray(wordType)">Create</button><br>
+          {{arrayTest}}
+        </div>
       </center>
     </div>
   </div>
@@ -35,24 +47,53 @@
 
 <script>
   import axios from 'axios'
+
   export default {
     data: () => ({
       loading: false,
-      posts: []
+      posts: [],
+      pageOn: 1,
+      pageTotal: 0,
+      lastPage: 0,
+      arrayTest:[],
+      wordType:''
+      //isTrue : true,
+      //isActive: false
     }),
-    async fetch () {
-      await axios.get('https://reqres.in/api/unknown')
-      .then((response) =>{
-        console.log(response.data.data)
-        this.posts = response.data.data
-      })
+    async fetch() {
+      await axios.get('https://reqres.in/api/unknown', {params: {page: this.pageOn}})
+        .then((response) => {
+          this.pageTotal = response.data.total_pages
+          this.posts = response.data.data
+        })
     },
     methods: {
-      start () {
+      start() {
         this.loading = true
       },
-      finish () {
+      finish() {
         this.loading = false
+      },
+      async handleSelectedPage(value) {
+        this.pageOn = value
+        //Change page
+        await axios.get('https://reqres.in/api/unknown', {params: {page: value}})
+          .then((response) => {
+            this.pageTotal = response.data.total_pages
+            this.posts = response.data.data
+          })
+      },
+      incPage(){
+        this.pageOn+=1
+        this.handleSelectedPage(this.pageOn)
+      },
+      decPage(){
+        this.pageOn-=1
+        this.handleSelectedPage(this.pageOn)
+
+      },
+      createToArray(word){
+        this.arrayTest.push(word)
       }
     }
   }

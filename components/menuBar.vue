@@ -10,6 +10,9 @@
       <li>
         <nuxt-link to="/register">Register</nuxt-link>
       </li>
+      <li>
+        <nuxt-link to="/tablefetch">Table</nuxt-link>
+      </li>
     </ul>
   </div>
 </template>
