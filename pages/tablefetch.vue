@@ -29,15 +29,40 @@
           </div>
           <div class="paging" href="#" v-if="this.pageOn!=this.pageTotal" @click="incPage">&raquo;</div>
         </div>
+
+        <!--Pagination-->
+        <div>
+          <input v-model="name1">
+          <input v-model="job1">
+          <br>
+          {{name1}}
+          {{job1}}
+          {{wordType}}
+        </div>
+        <tbody>
+        <tr class="prim-bg col-height">
+          <th class="col-height col-sm">id</th>
+          <th class="col-height col-md">name</th>
+          <th class="col-height col-sm">Job</th>
+          <th class="col-height col-sm"></th>
+
+        </tr>
+
+        <tablerow v-for="(item, index) in wordType" :key="item.id" :item="item" v-on:delete-row="deleteThisRow(index)"></tablerow>
+        <!--          <td class="col-height col-sm" >{{item.id}}</td>-->
+        <!--          <td class="col-height col-md" v-if="!edit">{{item.nameF}}</td>-->
+        <!--          <td class="col-height col-sm" v-else><input></td>-->
+
+        <!--          <td class="col-height col-sm" v-if="!edit">{{item.JobF}}</td>-->
+        <!--          <td class="col-height col-sm" v-else><input></td>-->
+
+        <!--          <td class="col-height col-sm" ><button @click="editEnable">Edit</button></td>-->
+
+        </tbody>
         <div class="container">
+          <button @click="createToArray()">Create</button>
           <button>Delete</button>
           <button>Edit</button>
-        </div>
-        <div>
-          <input v-model="wordType">
-          {{wordType}}
-          <button @click="createToArray(wordType)">Create</button><br>
-          {{arrayTest}}
         </div>
       </center>
     </div>
@@ -47,25 +72,29 @@
 
 <script>
   import axios from 'axios'
+  import tablerow from '@/components/tablerow';
 
   export default {
+    components: {
+      tablerow
+    },
     data: () => ({
       loading: false,
       posts: [],
       pageOn: 1,
       pageTotal: 0,
       lastPage: 0,
-      arrayTest:[],
-      wordType:''
+      arrayTest: [],
+      name1: '',
+      job1: '',
+      id: 1,
+      wordType: [],
+      edit: false
       //isTrue : true,
       //isActive: false
     }),
     async fetch() {
-      await axios.get('https://reqres.in/api/unknown', {params: {page: this.pageOn}})
-        .then((response) => {
-          this.pageTotal = response.data.total_pages
-          this.posts = response.data.data
-        })
+      await this.handleSelectedPage(this.pageOn)
     },
     methods: {
       start() {
@@ -83,18 +112,27 @@
             this.posts = response.data.data
           })
       },
-      incPage(){
-        this.pageOn+=1
+      incPage() {
+        this.pageOn += 1
         this.handleSelectedPage(this.pageOn)
       },
-      decPage(){
-        this.pageOn-=1
+      decPage() {
+        this.pageOn -= 1
         this.handleSelectedPage(this.pageOn)
 
       },
-      createToArray(word){
-        this.arrayTest.push(word)
+      createToArray() {
+        const Object = {id: this.id, nameF: this.name1, JobF: this.job1}
+        this.id += 1
+        console.log(Object)
+        this.wordType.push(Object)
+      },
+      deleteThisRow(index) {
+        this.wordType.splice(index, 1);
       }
+      // editEnable() {
+      //   this.edit = true
+      // }
     }
   }
 </script>
