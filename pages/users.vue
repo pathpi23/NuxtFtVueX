@@ -35,9 +35,9 @@
 
         <!--Pagination-->
         <div>
-<!--          <input v-model="body1">-->
-<!--          <input v-model="id1">-->
-<!--          <input v-model="title1">-->
+          <input v-model="body1">
+          <input v-model="id1">
+          <input v-model="title1">
 
         </div>
 <!--        <tbody>-->
@@ -142,12 +142,13 @@
       },
       editPost(...args){
         const [index,idNew,titleNew] = args
+        const whereIndex = (this.pageOn-(index+1))*this.pageSize
         // console.log(idNew,titleNew);
         // console.log(index,'index');
         // console.log(this.posts[index].title,'old');
 
-        this.posts[index].id = idNew
-        this.posts[index].title = titleNew
+        this.posts[whereIndex].id = idNew
+        this.posts[whereIndex].title = titleNew
 
       },
       selectedPage(datas) {
