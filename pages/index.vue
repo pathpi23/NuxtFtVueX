@@ -15,6 +15,8 @@
     components: {
 
     },
+    middleware: 'auth',
+
     data() {
       return {}
     },

@@ -1,11 +1,11 @@
 <template>
   <tr>
-    <td class="col-height col-sm">{{item.id}}</td>
-    <td class="col-height col-md" v-if="!edit">{{item.nameF}}</td>
-    <td class="col-height col-sm" v-else><input :value="item.nameF"></td>
+    <td class="col-height col-sm">{{item.userId}}</td>
+    <td class="col-height col-md" v-if="!edit">{{item.id}}</td>
+    <td class="col-height col-sm" v-else><input :value="item.id"></td>
 
-    <td class="col-height col-sm" v-if="!edit">{{item.JobF}}</td>
-    <td class="col-height col-sm" v-else><input :value="item.JobF"></td>
+    <td class="col-height col-sm" v-if="!edit">{{item.title}}</td>
+    <td class="col-height col-sm" v-else><input :value="item.title"></td>
 
     <td class="col-height col-sm">
       <button v-if="!edit" @click="editEnable">Edit</button>
@@ -28,6 +28,7 @@
     methods: {
       editEnable() {
         this.edit = true
+        this.$emit('edit-change')
       },
       saveEdited() {
         this.edit = false

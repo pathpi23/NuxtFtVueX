@@ -65,14 +65,6 @@
             email: this.email,
             password: this.password,
           })
-            .then(success => {
-              console.log('tellme success')
-            })
-            .catch(error => {
-              console.log('errorr')
-              console.log(error.response.data)
-              console.log(error.response.status)
-            })
         }
 
       },
