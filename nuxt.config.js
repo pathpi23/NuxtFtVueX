@@ -61,7 +61,12 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
-  ],
+    'bootstrap-vue/nuxt'
+
+],
+  bootstrapVue: {
+    icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
+  },
   styleResources: {
     scss: [
       '~/assets/scss/main.scss',

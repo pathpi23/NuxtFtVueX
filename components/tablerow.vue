@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td class="col-height col-sm">{{item.userId}}</td>
-    <td class="col-height col-md" v-if="!edit">{{item.id}}</td>
+    <td class="col-height col-sm" v-if="!edit">{{item.id}}</td>
     <td class="col-height col-sm" v-else><input v-model="id1"></td>
 
     <td class="col-height col-sm" v-if="!edit">{{item.title}}</td>
@@ -21,12 +21,13 @@
     name: "tablerow",
     props: ['item'],
     data: () => ({
-      id1: '',
-      title1: '',
+      id1: 'default',
+      title1: 'default',
 
       edit: false
 
     }),
+
     methods: {
       editEnable() {
         this.edit = true
