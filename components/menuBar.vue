@@ -13,6 +13,9 @@
       <li>
         <nuxt-link v-if="$store.state.token!==''" to="/users">User : {{$store.state.token}}</nuxt-link>
       </li>
+      <li>
+        <button v-if="$store.state.token!==''" @click="handleClickedLogout">Logout</button>
+      </li>
 
     </ul>
   </div>
@@ -21,7 +24,11 @@
 <script>
   export default {
     name: "menuBar",
-
+    methods: {
+      handleClickedLogout() {
+        this.$store.commit('logout')
+      }
+    }
   }
 </script>
 
