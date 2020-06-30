@@ -14,11 +14,9 @@
           <th class="col-height">Posts Id</th>
           <th class="col-height">Name</th>
           <th class="col-height"></th>
-
         </tr>
 <!--        <tr v-for="post in selectedPage(posts)" :key="post.id">-->
-          <tablerow v-for="(post, index) in selectedPage(posts)" :key="post.id" :item="post" v-on:delete-row="deleteThisRow(index)"></tablerow>
-
+          <tablerow v-for="(post, index) in selectedPage(posts)" :key="post.id" :item="post" @delete="deleteThisRow(index)" @save="editPost(index , ...arguments)"></tablerow>
 <!--          <td class="col-height col-sm" v-text="post.userId"></td>-->
 <!--          <td class="col-height col-md" v-text="post.id"></td>-->
 <!--          <td class="col-height col-lg" v-text="post.title"></td>-->
@@ -37,10 +35,9 @@
 
         <!--Pagination-->
         <div>
-          <input v-model="body1">
-          <input v-model="id1">
-          <input v-model="title1">
-          <br>
+<!--          <input v-model="body1">-->
+<!--          <input v-model="id1">-->
+<!--          <input v-model="title1">-->
 
         </div>
 <!--        <tbody>-->
@@ -142,6 +139,16 @@
       deleteThisRow(index) {
         this.posts.splice(index, 1);
         this.pageTotal = Math.ceil(this.posts.length / this.pageSize)
+      },
+      editPost(...args){
+        const [index,idNew,titleNew] = args
+        // console.log(idNew,titleNew);
+        // console.log(index,'index');
+        // console.log(this.posts[index].title,'old');
+
+        this.posts[index].id = idNew
+        this.posts[index].title = titleNew
+
       },
       selectedPage(datas) {
         return datas.slice(0+(this.pageSize*(this.pageOn-1)),this.pageSize+(this.pageSize*(this.pageOn-1)))

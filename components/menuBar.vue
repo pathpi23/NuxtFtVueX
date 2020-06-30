@@ -5,13 +5,13 @@
         <nuxt-link to="/">Home</nuxt-link>
       </li>
       <li>
-        <nuxt-link v-if="$store.state.token==''" to="/login">Login</nuxt-link>
+        <nuxt-link v-if="$store.state.token===''" to="/login">Login</nuxt-link>
       </li>
       <li>
-        <nuxt-link v-if="$store.state.token==''" to="/register">Register</nuxt-link>
+        <nuxt-link v-if="$store.state.token===''" to="/register">Register</nuxt-link>
       </li>
       <li>
-        <nuxt-link v-if="$store.state.token!=''" to="/users">User : {{$store.state.token}}</nuxt-link>
+        <nuxt-link v-if="$store.state.token!==''" to="/users">User : {{$store.state.token}}</nuxt-link>
       </li>
 
     </ul>

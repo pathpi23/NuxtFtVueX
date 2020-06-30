@@ -4,7 +4,7 @@
       <div class="card" v-if="($store.state.token) === ''">
         <h3>Log in</h3>
 
-        <form action="#" @submit.prevent="handleClickedLogin">
+        <form action="#" @submit.prevent="onLogin">
           <ValidationProvider rules="required|email" v-slot="{errors}">
             <p> Email :
               <input v-model="email" type="text" placeholder="example@email.com">
@@ -56,16 +56,14 @@
       }
     },
     methods: {
-       handleClickedLogin() {
-        if (this.email === '') {
-          alert('Please fill in email')
-        } else {
+       onLogin() {
+
           console.log(this.email, this.password)
            this.$store.dispatch('Login', {
             email: this.email,
             password: this.password,
           })
-        }
+
 
       },
 
