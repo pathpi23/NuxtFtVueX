@@ -16,7 +16,7 @@
           <th class="col-height"></th>
         </tr>
 <!--        <tr v-for="post in selectedPage(posts)" :key="post.id">-->
-          <tablerow v-for="(post, index) in selectedPage(posts)" :key="post.id" :item="post" @delete="deleteThisRow(index)" @save="editPost(index , ...arguments)"></tablerow>
+          <tableRow v-for="(post, index) in selectedPage(posts)" :key="post.id" :item="post" @delete="deleteThisRow(index)" @save="editPost(index , ...arguments)"></tableRow>
 <!--          <td class="col-height col-sm" v-text="post.userId"></td>-->
 <!--          <td class="col-height col-md" v-text="post.id"></td>-->
 <!--          <td class="col-height col-lg" v-text="post.title"></td>-->
@@ -63,6 +63,7 @@
         <div class="container">
           <button @click="createToArray()">Create</button>
         </div>
+        {{posts}}
       </center>
     </div>
   </div>
@@ -71,11 +72,11 @@
 
 <script>
   import axios from 'axios'
-  import tablerow from '@/components/tablerow';
+  import tableRow from '@/components/Table-row';
 
   export default {
     components: {
-      tablerow
+      tableRow
     },
     middleware: 'auth',
 
@@ -129,14 +130,34 @@
         this.pageOn = val
       },
       createToArray() {
-        const Object = {userId: this.id, id: this.id1, title: this.title1 ,body:this.body1}
-        this.id += 1
-        console.log(Object)
-        this.posts.push(Object)
-        this.pageTotal = Math.ceil(this.posts.length / this.pageSize)
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: this.title1,
+            body: this.body1,
+            userId: this.id
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+          .then(response => response.json())
+          .then(json => {
+            console.log(json)
+            const Object = json
+            this.posts.push(Object)
+            console.log(Object)
+            this.id += 1
+            this.pageTotal = Math.ceil(this.posts.length / this.pageSize)
+
+          })
+
 
       },
       deleteThisRow(index) {
+        fetch('https://jsonplaceholder.typicode.com/posts/1', {
+          method: 'DELETE',
+        })
         this.posts.splice(index, 1);
         this.pageTotal = Math.ceil(this.posts.length / this.pageSize)
       },
@@ -146,9 +167,23 @@
         // console.log(idNew,titleNew);
         // console.log(index,'index');
         // console.log(this.posts[index].title,'old');
+        fetch('https://jsonplaceholder.typicode.com/posts/1', {
+          method: 'PATCH',
+          body: JSON.stringify({
+            title: titleNew
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        })
+          .then(response => response.json())
+          .then(json => {
+            console.log(json)
+            this.posts[whereIndex].id = json.id
+            this.posts[whereIndex].title = json.title
+          })
 
-        this.posts[whereIndex].id = idNew
-        this.posts[whereIndex].title = titleNew
+
 
       },
       selectedPage(datas) {
